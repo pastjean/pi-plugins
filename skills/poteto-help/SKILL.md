@@ -30,6 +30,6 @@ Other skills: use Pi's `/skill:` completion and read the matching description. P
 
 ## Troubleshoot
 
-- **Command missing:** confirm the package is installed in this Pi environment, skills and skill commands are enabled, then reload. Use `/skill:name`, not a bare skill name as a slash command.
+- **Command missing:** confirm the package is installed in this Pi environment, skills and skill commands are enabled, then reload. Use `/skill:<name>`, not a bare skill name as a slash command.
 - **Model or review didn't run:** check the model is available and that the session actually has an authorized runner for the role. Stock Pi doesn't supply a panel. Report a missing required check; don't simulate independent evidence.
 - **Run drifting:** restate the boundary and a pass/fail check. A green build doesn't show the user flow works. See [prompting](references/prompting.md) for short steers and [recipes](references/recipes.md) for examples.

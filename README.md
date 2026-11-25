@@ -25,6 +25,6 @@ npm test                 # package, playbooks, links and command references
 npm run test:install     # install in temporary Pi state and query actual skill commands
 ```
 
-Requires Node.js and, for the install test, `pi` on PATH. The install test does not send a model prompt. Individual skills can require other tools, such as Bun for the PR watcher or a Java runtime and TLC for model checking. Install only what your workflow needs.
+Requires Node.js and, for the install test, `pi` on PATH. The install test does not send a model prompt. Individual skills can require other tools, such as Bun for the PR watcher or a Java runtime and TLC for model checking. Install only what your workflow needs. For statechart on Node 26, use 26.13.1 or later; 26.12.0 prints a spurious loader diagnostic for certain invalid views. See [statechart runtime notes](skills/statechart/scripts/README.md).
 
 Derived from upstream commit `41e400932eca14f289e7db717a70455256b6d388`. Distributed under the [MIT license](LICENSE). This is an independent port, not an official Cursor plugin.

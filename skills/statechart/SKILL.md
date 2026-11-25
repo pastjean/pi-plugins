@@ -18,6 +18,8 @@ Resolve `<skill dir>` from the location of this SKILL.md, not the working direct
 
 `scripts/statechart.ts` is TypeScript, so run it with a runtime that can execute TypeScript. `scripts/statechart` is a POSIX shell script that picks one. On native Windows, run `node --disable-warning=ExperimentalWarning <skill dir>/scripts/statechart.ts` with Node 22.18 to 22.x, or Node 23.6 or later.
 
+On Node 26 use 26.13.1 or later; see the [runtime notes](scripts/README.md).
+
 Use existing tools offline by setting `TLA2TOOLS` to the local tla2tools.jar and `JAVA` to a Java 11+ executable. Otherwise the helper uses mise and may download Java and TLC. Confirm authorization before running it if installation is needed. If tools are unavailable, report the check blocked; a sketch is not a checked chart.
 
 ## Write the spec

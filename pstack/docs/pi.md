@@ -1,6 +1,6 @@
 # Running pstack in Pi
 
-Start a workflow with `/skill:poteto-mode <task>`, or invoke a specific skill such as `/skill:architect`. Use real skill names from the package. A skill command adds instructions to the current session; it does not start a persistent mode, service or new process. When a step calls another skill, read `skills/<name>/SKILL.md` relative to the installed package and follow it in the same task. Do not issue slash commands through the shell.
+Start a workflow with `/skill:poteto-mode <task>`, or invoke a specific skill such as `/skill:architect`. Use real skill names from the package. A skill command adds instructions to the current session; it does not start a persistent mode, service or new process. When a step calls another skill, read `skills/<name>/SKILL.md` relative to the pstack directory (the parent of this `docs/` directory) and follow it in the same task. Do not issue slash commands through the shell.
 
 - **Tool names:** use the tools advertised in the current session. Stock Pi provides file and shell tools. If there is no todo tool, keep a short checklist in the conversation. If there is no question tool, ask in plain text. Search with available file tools or `rg`.
 - **Models:** use the active session model by default. Optional role preferences belong in `pstack-models.md` under `PI_CODING_AGENT_DIR` (default `~/.pi/agent`). This is pstack data, not an automatically loaded Pi rule. Read it only for role selection. Do not change the active model, enable providers or write credentials on the user's behalf.

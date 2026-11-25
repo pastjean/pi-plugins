@@ -1,14 +1,16 @@
 import assert from 'node:assert/strict';
 import { execFileSync, spawn } from 'node:child_process';
-import { mkdtempSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createInterface } from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
 const repo = fileURLToPath(new URL('../', import.meta.url));
-const source = process.argv[2] ?? repo;
-const home = mkdtempSync(join(tmpdir(), 'pi-pstack-install-'));
+const plugin = process.argv[2];
+assert.ok(['root', 'pstack', 'thermos'].includes(plugin), 'expected root, pstack or thermos');
+const source = plugin === 'root' ? repo : join(repo, plugin);
+const home = mkdtempSync(join(tmpdir(), 'pi-plugins-install-'));
 const cwd = join(home, 'workspace');
 mkdirSync(cwd);
 const env = { ...process.env, HOME: home, PI_CODING_AGENT_DIR: join(home, 'agent') };
@@ -33,7 +35,10 @@ try {
     await done;
     assert.ok(reply?.success, JSON.stringify(reply));
     const names = reply.data.commands.filter(c => c.source === 'skill' && c.sourceInfo.origin === 'package').map(c => c.name).sort();
-    const expected = readdirSync(join(repo, 'skills')).map(n => `skill:${n}`).sort();
+    const skills = plugin === 'root' ? [] : plugin === 'pstack'
+      ? readFileSync(join(repo, 'pstack/test/upstream-skills.txt'), 'utf8').trim().split('\n')
+      : ['thermos', 'thermo-nuclear-review', 'thermo-nuclear-code-quality-review'];
+    const expected = skills.map(name => `skill:${name}`).sort();
     assert.deepEqual(names, expected);
     console.log(`Pi loaded ${names.length} package skills from ${source}`);
   } finally {

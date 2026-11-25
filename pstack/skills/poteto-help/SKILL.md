@@ -10,7 +10,7 @@ For a help question, answer it without starting the work. Read the local skill o
 
 ## Start here
 
-Install with `pi install git:github.com/pastjean/pi-pstack`. Start Pi in the project (or `/reload` in the current Pi session). Type `/skill:poteto-mode` followed by the goal and how to check it. This loads instructions for a task, not a persistent mode. For a different task, invoke the skill again.
+Clone `https://github.com/pastjean/pi-plugins` and run `pi install ./pstack` from the checkout. Start Pi in the project (or `/reload` in the current Pi session). Type `/skill:poteto-mode` followed by the goal and how to check it. This loads instructions for a task, not a persistent mode. For a different task, invoke the skill again.
 
 [Model setup](../setup-pstack/SKILL.md) is optional. The active Pi model is the default. To choose detected models for specific roles, run `/skill:setup-pstack`; saving personal preferences requires approval. A model list doesn't create workers. To keep cost down, narrow the task or ask for one local pass instead of a panel; don't call a single pass independent review.
 

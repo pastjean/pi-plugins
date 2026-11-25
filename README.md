@@ -1,30 +1,23 @@
-# pi-pstack
+# pi-plugins
 
-A Pi port of [Lauren Tan's pstack](https://github.com/cursor/plugins/tree/41e400932eca14f289e7db717a70455256b6d388/pstack). Give Pi an engineering task; the router picks a playbook, works through its steps, and reports the evidence. The package includes 59 skills and 22 playbooks. It registers no runtime extension.
+Independent skill packages for [Pi](https://pi.dev). The repository root is a catalog; installing it does not load any plugins.
 
-```sh
-pi install git:github.com/pastjean/pi-pstack
-```
+- [pstack](pstack/): 59 engineering skills and 22 playbooks. Start with `/skill:poteto-mode`.
+- [Thermos](thermos/): correctness, security and maintainability reviews. Start with `/skill:thermos`.
 
-Start Pi or run `/reload` in an open session. No model setup is required. Try:
-
-```text
-/skill:poteto-mode Fix the stale count after deleting an item. Reproduce it first.
-/skill:blast-radius What else could break if we change the cache key?
-/skill:poteto-help Which skill should I use to explain a subsystem?
-```
-
-[Browse the skills](skills/) or [read the playbooks](skills/poteto-mode/playbooks/). To set model preferences, invoke `/skill:setup-pstack`. On stock Pi, the current session owns the work. Parallel attempts and independent review need an available, authorized delegation tool. The [Pi runtime notes](docs/pi.md) describe fallbacks and external-service limits.
-
-To remove: `pi remove git:github.com/pastjean/pi-pstack`.
-
-## Verify a checkout
+## Install
 
 ```sh
-npm test                 # package, playbooks, links and command references
-npm run test:install     # install in temporary Pi state and query actual skill commands
+git clone https://github.com/pastjean/pi-plugins.git
+cd pi-plugins
+pi install ./pstack    # pstack only
+pi install ./thermos   # Thermos only
 ```
 
-Requires Node.js and, for the install test, `pi` on PATH. The install test does not send a model prompt. Individual skills can require other tools, such as Bun for the PR watcher or a Java runtime and TLC for model checking. Install only what your workflow needs. For statechart on Node 26, use 26.13.1 or later; 26.12.0 prints a spurious loader diagnostic for certain invalid views. See [statechart runtime notes](skills/statechart/scripts/README.md).
+Run only the install commands you want, then restart Pi or run `/reload`. Keep the checkout: Pi loads local packages from disk. To update, run `git pull --ff-only` and `/reload`. To uninstall, run `pi remove ./pstack` or `pi remove ./thermos` from the same checkout.
 
-Derived from upstream commit `41e400932eca14f289e7db717a70455256b6d388`. Distributed under the [MIT license](LICENSE). This is an independent port, not an official Cursor plugin.
+**Migrating from pi-pstack:** Remove the old Git package with `pi remove git:github.com/pastjean/pi-pstack`, then install `./pstack` as above. Use the same install scope (`--local` for a project install). Skill names are unchanged.
+
+## Verify
+
+`npm test` checks the packages. `npm run test:install` checks actual Pi skill discovery for the root and each plugin in separate temporary homes. Requires Node.js and `pi` on PATH; no API key is needed.

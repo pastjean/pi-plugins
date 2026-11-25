@@ -10,7 +10,7 @@ The chart shows how a system moves between states, in the words of the person wh
 
 ## Run
 
-Work in a scratch folder outside the repo. Write a TLA+ spec and its config. Then run:
+Resolve `<skill dir>` from the location of this SKILL.md, not the working directory. Work in a scratch folder outside the repo. Write a TLA+ spec and its config. Then run:
 
 ```sh
 <skill dir>/scripts/statechart SPEC.tla [--config FILE] [--view FILE] [--out DIR]
@@ -18,7 +18,7 @@ Work in a scratch folder outside the repo. Write a TLA+ spec and its config. The
 
 `scripts/statechart.ts` is TypeScript, so run it with a runtime that can execute TypeScript. `scripts/statechart` is a POSIX shell script that picks one. On native Windows, run `node --disable-warning=ExperimentalWarning <skill dir>/scripts/statechart.ts` with Node 22.18 to 22.x, or Node 23.6 or later.
 
-The first run installs TLC and Java with mise and needs the network.
+Use existing tools offline by setting `TLA2TOOLS` to the local tla2tools.jar and `JAVA` to a Java 11+ executable. Otherwise the helper uses mise and may download Java and TLC. Confirm authorization before running it if installation is needed. If tools are unavailable, report the check blocked; a sketch is not a checked chart.
 
 ## Write the spec
 
@@ -73,7 +73,7 @@ Aim for about 20 arrows or fewer, because a busier chart is hard to read. First 
 
 Show `chart.mmd` to the user as a `mermaid` code block. The chart has a budget of 500 states, counted by TLC on the config as written. Above that, the chart draws only the paths to the rules that break, and when no rule breaks, the command writes no `chart.mmd`. It still checks each rule, and the report gives the state count and each bug path. To see the whole graph, make the model smaller.
 
-Render charts with Pele. When the user asks for an image, or a chart is too large to read as text, follow `references/render.md`. Do not use a different renderer unless the user asks for it.
+Render charts with Pele when installed or installation is authorized; otherwise give the Mermaid text and identify rendering as skipped. When the user asks for an image, or a chart is too large to read as text, follow `references/render.md`. Do not use a different renderer unless the user asks for it.
 
 ## Hand off
 

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
-import { basename, dirname, join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
@@ -31,6 +31,7 @@ test('all 59 skill definitions have portable names and routing descriptions', ()
     assert.ok(header, name);
     assert.equal(header.match(/^name: (.+)$/m)?.[1], name);
     assert.match(header, /^description: .+/m, name);
+    assert.doesNotMatch(doc, /(?:~\/|`|\s)\.(?:cursor|claude)\/|\bsubagent_type\s*:/, name);
   }
 });
 
@@ -39,7 +40,7 @@ test('router names all 22 bundled playbooks', () => {
   const router = read(join(dir, 'SKILL.md'));
   const playbooks = readdirSync(join(dir, 'playbooks')).filter(f => f.endsWith('.md'));
   assert.equal(playbooks.length, 22);
-  for (const name of playbooks) assert.ok(router.includes(basename(name, '.md')), name);
+  for (const name of playbooks) assert.ok(router.includes(`](playbooks/${name})`), name);
 });
 
 test('relative Markdown links and Pi skill commands resolve', () => {

@@ -14,7 +14,7 @@ When in doubt, ask. Skipping a noisy code-quality comment is cheap; skipping a r
 
 ## Learned pattern format
 
-Add future patterns in this shape:
+This reference is read-only. Propose patterns in chat. Only when the user approves a project-owned destination, record them there in this shape:
 
 ```markdown
 ### <short pattern name>
@@ -85,7 +85,7 @@ Historical data showed humans sometimes dismiss security/data-flow comments. Tre
 
 ## Candidate learnings from recent babysits
 
-Append new candidate learnings here during or after babysitting when they look team-useful but not yet mature. Prefer promoting recurring candidates into the section above once several PRs confirm the pattern.
+Use these examples for comparison. Never write project findings or private PR links into the installed package.
 
 ### Manual reimplementations of native browser behavior
 

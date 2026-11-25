@@ -7,6 +7,8 @@ import test from 'node:test';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const skills = readdirSync(join(root, 'skills')).sort();
 const read = path => readFileSync(path, 'utf8');
+// Names from git ls-tree at the upstream revision pinned in README.md.
+const inventory = kind => read(join(root, `test/upstream-${kind}.txt`)).trim().split('\n').sort();
 function* markdown(dir) {
   for (const file of readdirSync(dir, { withFileTypes: true })) {
     const path = join(dir, file.name);
@@ -23,7 +25,7 @@ test('manifest exposes the skill collection only', () => {
 });
 
 test('all 59 skill definitions have portable names and routing descriptions', () => {
-  assert.equal(skills.length, 59);
+  assert.deepEqual(skills, inventory('skills'));
   for (const name of skills) {
     assert.match(name, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
     const doc = read(join(root, 'skills', name, 'SKILL.md'));
@@ -39,7 +41,7 @@ test('router names all 22 bundled playbooks', () => {
   const dir = join(root, 'skills/poteto-mode');
   const router = read(join(dir, 'SKILL.md'));
   const playbooks = readdirSync(join(dir, 'playbooks')).filter(f => f.endsWith('.md'));
-  assert.equal(playbooks.length, 22);
+  assert.deepEqual(playbooks.sort(), inventory('playbooks'));
   for (const name of playbooks) assert.ok(router.includes(`](playbooks/${name})`), name);
 });
 

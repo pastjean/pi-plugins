@@ -1,6 +1,9 @@
 #!/usr/bin/env bun
-import { ensureDependenciesInstalled } from "../bootstrap.ts";
+import { existsSync } from 'node:fs';
 
-ensureDependenciesInstalled();
-const { main } = await import("./cli.ts");
+if (!existsSync(new URL('../node_modules/commander/package.json', import.meta.url))) {
+  console.error('Watcher dependencies are not installed. Use gh directly, or copy the scripts directory to scratch and run bun install --frozen-lockfile there.');
+  process.exit(2);
+}
+const { main } = await import('./cli.ts');
 process.exitCode = await main(process.argv.slice(2));
